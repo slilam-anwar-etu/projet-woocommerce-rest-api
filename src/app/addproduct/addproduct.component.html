@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>add product</title>
+
+  </head>
+
+<body>
+<app-navbar></app-navbar>
+
+<div class="container-fluid">
+  <div class="row">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Add Product</h1>
+      </div>
+
+      <div class="panel-body">
+        <form class="form-horizontal" #addproductForm="ngForm" (submit)="addProduct()">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label">Product's Name :</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="name" required maxlength="50" [(ngModel)]="product.name" #name="ngModel" >
+                        <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+                             <div [hidden]="!name.errors.required">
+                                 <span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;Product's Name is required !
+                             </div>
+                         </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="id_categorie" class="col-sm-2 col-form-label">Category :</label>
+                     <div class="col-sm-10">
+                        <select id="id_categorie" class="form-control" name="id_categorie" required [(ngModel)]="product.categories[0].id" #id_categorie="ngModel">
+                            <option></option>
+                            <option *ngFor="let C of categories" value="{{C.id}}">{{C.name}}</option>
+                        </select>
+                        <div *ngIf="id_categorie.errors && (id_categorie.dirty || id_categorie.touched)" class="alert alert-danger">
+                            <div [hidden]="!id_categorie.errors.required">
+                               <span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;Category is required !
+                           </div>
+                        </div>
+                     </div>
+                </div>
+                <div class="form-group row">
+                    <label for="regular_price" class="col-sm-2 col-form-label">Regular Price :</label>
+                     <div class="col-sm-10">
+                        <input type="text" step="any" class="form-control" name="regular_price" required [(ngModel)]="product.regular_price" #regular_price="ngModel" >
+                        <div *ngIf="regular_price.errors && (regular_price.dirty || regular_price.touched)" class="alert alert-danger">
+                             <div [hidden]="!regular_price.errors.required">
+                                <span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;Regular Price ht is required !
+                            </div>
+                         </div>
+                     </div>
+                </div>
+                <div class="form-group row">
+                    <label for="sale_price" class="col-sm-2 col-form-label">Sale Price :</label>
+                    <div class="col-sm-10">
+                        <input type="text" step="any" class="form-control" name="sale_price" required [(ngModel)]="product.sale_price" #sale_price="ngModel" >
+                        <div *ngIf="sale_price.errors && (sale_price.dirty || sale_price.touched)" class="alert alert-danger">
+                             <div [hidden]="!sale_price.errors.required">
+                                <span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;Sale Price is required !
+                            </div>
+                         </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="description" class="col-sm-2 col-form-label">Description :</label>
+                    <div class="col-sm-10">
+                        <textarea  class="form-control" name="description" [(ngModel)]="product.description" #description="ngModel" > </textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="image" class="col-sm-2 col-form-label">Image :</label>
+                    <div class="col-sm-10">
+                        <input type="file" name="image" accept="image/*" (change)="imageUpload($event)">
+                        <img [src]="file ? file : 'assets/images/no-image.png'" height="267px" width="200px">
+                    </div>
+                </div>
+                 <div class="form-group row">
+                         <div class="offset-2 col-sm-10">
+                                 <button type="submit" class="btn btn-sm btn-success" style="margin-right: 2px;" [disabled]="!addproductForm.form.valid">SAVE</button>
+                         </div>
+                 </div>
+            </div>
+        </form>
+        <br>
+        <form class="form-horizontal" #addproductExcel="ngForm" (submit)="addProductExcel()">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label for="excel" class="col-sm-2 col-form-label">Excel File :</label>
+                    <div class="col-sm-10">
+                        <input type="file" name="excel" (change)="onFileChange($event)" required multiple="false" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-sm btn-success" style="margin-right: 2px;" [disabled]="empty">SAVE</button>
+                            <button type="button" class="btn btn-sm btn-info" routerLink="/products">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    </main>
+
+  </div>
+</div>
+</body>
+</html>

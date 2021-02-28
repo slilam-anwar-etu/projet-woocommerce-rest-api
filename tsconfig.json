@@ -12,6 +12,10 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
+    //"types": ["node"],
+    "paths": {
+      "stream": ["./node_modules/readable-stream"]
+    },
     "lib": [
       "es2018",
       "dom"
